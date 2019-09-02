@@ -1,0 +1,30 @@
+﻿@model TestWork.Models.CreateGroupModel
+@{
+    ViewBag.Title = "Создание учебной группы";
+}
+
+<h2>Создать учебную группу</h2>
+
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <legend>Введите данные</legend>
+        <p>
+            Преподаватель <br />
+            @Html.DropDownListFor(model => model.IdTeacher, ViewBag.TeacherDropList as SelectList)
+        </p>
+        <p>
+            Название учебной группы <br />
+            @Html.EditorFor(model => model.NameStudyGroup)
+        </p>
+        <p>
+            <input type="submit" value="Создать учебную группу" />
+        </p>
+
+    </fieldset>
+
+    <div>
+        @Html.ActionLink("К списку групп", "List")
+    </div>
+}
+

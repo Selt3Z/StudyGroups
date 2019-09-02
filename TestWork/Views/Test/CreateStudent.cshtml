@@ -1,0 +1,45 @@
+﻿@model TestWork.Models.CreateStudentModel
+@{
+    ViewBag.Title = "Добавление студента в группу";
+}
+
+<h2>Добавить студента в учебную группу</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <p>Преподаватель <b>@Model.NameTeacher</b></p>
+        <p>Учебная группа <b>@Model.NameStudyGroup</b></p> <br />
+        @Html.Hidden("IdStudyGroup", @Model.IdStudyGroup)
+        @Html.DropDownListFor(y => y.IdOrganization, Model.Organizations as SelectList, new { id = "organization" }) <br />
+        <br />
+        @Html.DropDownListFor(x => x.IdEmployee, Model.Employee as SelectList, new { id = "worker" }) <br />
+        <br />
+        <input type="submit" value="Добавить студента" />
+    </div>
+}
+
+    
+@section scripts{
+    <script type="text/javascript">
+    $(function () {
+
+        $('#organization').change(function ()
+        {
+            // получаем id
+            var id = $(this).val();
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetItems")?id=' + id,
+                success: function (data) {
+
+                    // заменяем содержимое частичным представлением
+                    $('#worker').replaceWith(data);
+                }
+            });
+        });
+    })
+    </script>
+}
+@Scripts.Render("~/scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")

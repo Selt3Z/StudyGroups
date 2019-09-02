@@ -1,0 +1,9 @@
+﻿@model List<TestWork.Models.EmployeeModel>
+<select id="worker" name="wrksList">
+    @foreach (var item in Model)
+    {
+        <option value="@item.IdEmployee">@item.NameEmployee</option>
+    }
+</select>
+
+

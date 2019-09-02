@@ -1,0 +1,74 @@
+﻿@model TestWork.Models.EditStudyGroupModel
+@{
+    ViewBag.Title = "Edit";
+}
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<h2>Редактировать учебную группу</h2>
+@using (Html.BeginForm())
+{
+    <p>Преподаватель</p>
+    <p>@Model.NameTeacher</p>
+    <p>Название учебной группы</p>
+    <p>@Html.TextBoxFor(x => x.NameStudyGroup)</p>
+    <input type="hidden" id="IdGroup" name="IdGroup" value=@Model.IdStudyGroup />
+    <p><input type="submit" value="Сохранить" /></p>
+}
+<table>
+    <tr>
+    <th>
+        Работник
+    </th>
+    <th>
+        Организация
+    </th>
+    <th>
+    </th>
+    </tr>
+    @foreach(var item in Model.EmployeeList)
+    {
+        <tr>
+            <td>@item.NameEmployee</td>
+            <td>@item.NameOrganization</td>
+            <td>@Html.ActionLink("Удалить из группы", "Delete", new { idStudent = item.IdEmployee, studyGroupId = Model.IdStudyGroup }/*, new AjaxOptions { HttpMethod = "POST" }*/)</td>
+        </tr>
+    }
+</table>
+@using (Html.BeginForm("CreateStudent", "Test", method:FormMethod.Get))
+{
+    <input type="hidden" id="IdGroup" name="IdGroup" value=@Model.IdStudyGroup />
+    <input type="submit" title="CreateStudent" value="Добавить студента" />
+}
+@*
+    <div>
+        <h4>Группа</h4>
+        <hr />
+        @Html.HiddenFor(model => model.EmployeeList.)
+        <div>
+            <p>
+                Название группы <br />
+                @Html.EditorFor(model => model.)
+            </p>
+        </div>
+        <div>
+            <p>
+                Преподаватель <br />
+                @Html.DisplayFor(model => model.Teachers.NameTeacher)
+            </p>
+        </div>
+        <div>
+            <input type="submit" value="Сохранить изменения"
+        </div>
+    </div>
+}
+<br />
+
+<div id="studentsTable">
+    @Ajax.ActionLink("Студенты", "GetStudentsOfGroup", new { IdGroup = Model.IdGroup}, new AjaxOptions { UpdateTargetId = "studentsTable" })
+</div>
+<div>
+    <input type="button" title="Create" value="Добавить студента" onclick="location.href='@Url.Action("AddStudent", "Test", new { IdGroup = Model.IdGroup })'" />
+</div>
+<div>
+    @Html.ActionLink("К списку групп", "List")
+</div>*@
